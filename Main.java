@@ -51,9 +51,8 @@ public class Main {
 			 */
 			System.out.println("Velkommen til spillet");
 			//Spillere
-			Player[] players = new Player[2];
-			players[0] = new Player(0);
-			players[1] = new Player(0);
+			int numOfPlayers = 2; /// antal af spillere
+			Player[] players = initialisePlayers(numOfPlayers);
 
 			//Terninger
 			Dice d1 = new Dice();
@@ -109,7 +108,7 @@ public class Main {
 				}						//Slutning af tur.
 				//Turen skiftes	
 				turn++;
-				if (turn == 2) {
+				if (turn == numOfPlayers) {
 					turn = 0;
 				}
 
@@ -123,6 +122,23 @@ public class Main {
 
 		}								//Selve spillets while loop.
 
+	}
+	
+	public static Player[] initialisePlayers(numOfPlayers)
+	{
+		/// opretter spillere med selvvalgte navne, returnere en spiller array.
+		/// er static så man ikke behøver at instantiere et objekt for at bruge metoden
+		Player players[] = new Player[numOfPlayers];
+		Scanner keyb = new Scanner(System.in);
+		String name = "";
+		for(int i = 0 ; i<numOfPlayers; i++)
+		{
+			System.out.println("Indtast navn på spiller_"+(i+1));
+			name = keyb.nextLine();
+			players[i] = Player(name);			
+		}
+		keyb.close();
+		return players;
 	}
 }
 
