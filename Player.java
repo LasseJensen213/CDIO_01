@@ -17,6 +17,23 @@ public class Player {
 		playerNum++;
 		
 	}
+	//konstruktør med string som parameter
+	public Player(String name)
+	{
+		
+		if (name.length()<1)
+		{
+			this.owner = "Spiller_"+playerNum;
+		}
+		else
+		{
+			this.owner = name;
+		}
+		this.points = 0;
+		this.lastThrow[0]=0;
+		this.lastThrow[1]=0;
+		playerNum++;
+	}
 	
 	
 	//Add points
