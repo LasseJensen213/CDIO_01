@@ -17,12 +17,25 @@ public class Player {
 		playerNum++;
 		
 	}
+	public Player(String name)
+	{
+		if(name.length()<1)
+		{
+			owner = "Spiller_"+playerNum;
+		}
+		else
+		{
+			owner = name;
+		}
+		playerNum++;
+		
+	}
 	
 	
 	//Add points
 	
 	public void addpoints(int points) {
-		this.points =+ points;
+		this.points += points;
 	}
 	
 	
@@ -46,6 +59,24 @@ public class Player {
 
 	public void setpoints(int points) {
 		this.points = points;
+	}
+	
+	public void setLastThrow(int d1, int d2)
+	{
+		lastThrow[0]=d1;
+		lastThrow[1]=d2;
+	}
+	
+	public boolean lastThrowEqual(int d1, int d2)
+	{
+		if(lastThrow[0]==d1 && lastThrow[1]==d2)
+		{
+			return true;
+		}
+		else
+		{
+		return false;
+		}
 	}
 
 
