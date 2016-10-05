@@ -74,7 +74,6 @@ public class Main {
 			System.out.println("Spiller 1 starter.");
 
 
-			Scanner keyb2 = new Scanner(System.in);
 			String gameCommand = "";
 
 			while (start && !genstart ) {
@@ -91,7 +90,7 @@ public class Main {
 					System.out.println(players[0].getowner() + " har " + players[0].getpoints() + " points");
 					System.out.println(players[1].getowner() + " har " + players[1].getpoints() + " points\r");
 					System.out.println("Tryk enter for at rafle");
-					gameCommand = keyb2.nextLine();
+					gameCommand = keyb.nextLine();
 					d1.roll();
 					d2.roll();
 					players[turn].incTimesRolled(); // antallet af spillerens kast gennem hele spillet +1
@@ -263,9 +262,7 @@ public class Main {
 
 			}//Selve spillets while loop.
 			keyb.close();
-			keyb2.close();
 		}
-
 	}
 
 
