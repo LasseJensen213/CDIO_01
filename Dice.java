@@ -21,7 +21,6 @@ public class Dice {
 
 
 
-
 	//Getters and settes
 	public int getFaceValue() {
 		return faceValue;
