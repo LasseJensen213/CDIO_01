@@ -65,14 +65,13 @@ public class Main {
 			boolean onlyOneLastTurn = false;
 			boolean askToRestart = false;
 			boolean genstart = false;
-			int aSpillerV = 0;
+
 
 			//Udskriver antallet af point spillerne har
 
 
 			//Start tekst
 			System.out.println("Spiller 1 starter.");
-
 
 
 			String gameCommand = "";
@@ -122,16 +121,17 @@ public class Main {
 							//Spørger om terningernes øjne er andet end 1'ere
 							else if (d1.getFaceValue() != 1) 
 							{	
-								aSpillerV++;
-								if (aSpillerV == 2)
-								{
-									System.out.println("Uafgjort!");
+								players[turn].setvundet(true);
+								lastTurn = true;
+								
+								if (turn == 0) {
+									System.out.println(players[1].getowner() +"'s sidste chance for at vinde!");	
 								}
+								else if (turn == 1) {
+									System.out.println(players[0].getowner() +"'s sidste chance for at vinde!");
+								}
+									
 
-								else {
-									players[turn].setvundet(true);
-									lastTurn = true;
-								}
 							}
 						}
 
@@ -164,15 +164,13 @@ public class Main {
 								//Checker om sidste kast for spilleren var to seksere
 								if(players[turn].lastThrowEqual(d1.getFaceValue(), d2.getFaceValue()))
 								{
-									aSpillerV++;
-									if (aSpillerV == 2)
-									{
-										System.out.println("Uafgjort!");
-
+									players[turn].setvundet(true);
+									lastTurn = true;
+									if (turn == 0) {
+										System.out.println(players[1].getowner() +"'s sidste chance for at vinde!");	
 									}
-									else {
-										players[turn].setvundet(true);
-										lastTurn = true;
+									else if (turn == 1) {
+										System.out.println(players[0].getowner() +"'s sidste chance for at vinde!");
 									}
 								}
 								else
@@ -221,55 +219,67 @@ public class Main {
 					{
 						turn++;
 					}
-					
-					
-					
-				if (turn == numOfPlayers) 
-				{
-					turn = 0;
-				}
-				//Printer vinderen efter sidste tur
-				if (players[0].getvundet() == true && ekstratur == 0 && askToRestart && aSpillerV != 2) {
-					System.out.println(players[0].getowner() + " har vundet med " + players[0].getTimesRolled() + " kast");
-				}
-				else if (players[1].getvundet() == true  && ekstratur == 0 && askToRestart) {
-					System.out.println(players[1].getowner() + " har vundet med " + players[1].getTimesRolled() + " kast");
-				}
-				
-				//Spørger om man vil genstarte, eller afslutte spillet
-				if(askToRestart && (ekstratur==0))
-				{
-					System.out.println("---------------------------------");
-					boolean validCommand = false;
-					while (!validCommand)
-					{
-						System.out.println("tast 'genstart' for at starte et nyt spil, eller tast 'slut' for at lukke spillet");
-						String input = keyb.nextLine();
-						input = input.toLowerCase();
-						switch(input)
-						{
-						case "slut":
-							start = false;
-							validCommand = true;
-							break;
-						case "genstart":
-							genstart = true;
-							validCommand = true;
-							break;
-						default: 
-							System.out.println("Ugyldig indtastning");
-							break;
 
+
+
+					if (turn == numOfPlayers) 
+					{
+						turn = 0;
+					}
+
+					//Printer vinderen efter sidste tur
+					if (ekstratur == 0 && askToRestart)
+					{
+						if (players[0].getvundet() && players[1].getvundet() == false) {
+							System.out.println(players[0].getowner() + " har vundet med " + players[0].getTimesRolled() + " kast");
+							players[0].setvundet(false);
+						}
+						else if (players[1].getvundet() && players[0].getvundet() == false) {
+							System.out.println(players[1].getowner() + " har vundet med " + players[1].getTimesRolled() + " kast");
+							players[1].setvundet(false);
+						}
+						else if (players[0].getvundet() && players[1].getvundet()) {
+							System.out.println("Spillet er uafgjort efter " + (players[0].getTimesRolled()+players[1].getTimesRolled())/2 + " kast");
+							players[0].setvundet(false);
+							players[1].setvundet(false);
 						}
 					}
-				
-				}		
-				// Runder						¨
-				
-			}
-				
-		}//Selve spillets while loop.
-		keyb.close();
+
+
+					//Spørger om man vil genstarte, eller afslutte spillet
+					if(askToRestart && (ekstratur==0))
+					{
+						System.out.println("---------------------------------");
+						boolean validCommand = false;
+						while (!validCommand)
+						{
+							System.out.println("tast 'genstart' for at starte et nyt spil, eller tast 'slut' for at lukke spillet");
+							String input = keyb.nextLine();
+							input = input.toLowerCase();
+							switch(input)
+							{
+							case "slut":
+								start = false;
+								validCommand = true;
+								break;
+							case "genstart":
+								genstart = true;
+								validCommand = true;
+								break;
+							default: 
+								System.out.println("Ugyldig indtastning");
+								break;
+
+							}
+						}
+
+					}		
+					// Runder						¨
+
+				}
+
+			}//Selve spillets while loop.
+			
 		}
 	}
 
@@ -279,12 +289,12 @@ public class Main {
 		/// opretter spillere med selvvalgte navne, returnere en spiller array.
 		/// er static så man ikke behøver at instantiere et objekt for at bruge metoden
 		Player players[] = new Player[numOfPlayers];
-		Scanner keyb = new Scanner(System.in);
+		Scanner keyb1 = new Scanner(System.in);
 		String name = "";
 		for(int i = 0 ; i<numOfPlayers; i++)
 		{
 			System.out.println("Indtast navn på Spiller "+(i+1));
-			name = keyb.nextLine();
+			name = keyb1.nextLine();
 			if(name.length()<1)
 			{
 				name = "Spiller "+Player.getPlayerNum();
@@ -292,7 +302,7 @@ public class Main {
 			while(nameTaken(players,name,i))
 			{
 				System.out.println("Navnet er taget - indtast venligst et nyt");
-				name = keyb.nextLine();
+				name = keyb1.nextLine();
 				if(name.length()<1)
 				{
 					name="Spiller "+Player.getPlayerNum();
@@ -302,6 +312,7 @@ public class Main {
 			players[i] = new Player(name);			
 		}
 		return players;
+
 	}
 
 	private static boolean nameTaken(Player[] playerArr, String newName, int numOfElements)
@@ -334,4 +345,3 @@ public class Main {
 	}
 
 }
-
