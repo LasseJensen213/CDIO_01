@@ -4,9 +4,11 @@ public class Dice {
 
 	private int faceValue;
 
+
 	// Roll the dices	
 	public void roll() {
 		faceValue = (int)(Math.random()*6+1);
+		faceValue = 6;
 	}
 
 	//Compare faceValue

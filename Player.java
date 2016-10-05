@@ -51,6 +51,7 @@ public class Player {
 		this.points += points;
 	}
 	
+		
 	
 	
 	//Getters and setters:
@@ -86,6 +87,10 @@ public class Player {
 	public void incTimesRolled()
 	{
 		this.timesRolled++;
+	}
+
+	public void setTimesRolled(int timesRolled) {
+		this.timesRolled = timesRolled;
 	}
 
 	public void setpoints(int points) 
