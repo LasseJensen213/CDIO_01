@@ -19,8 +19,39 @@ public class JUnitTest {
 	public void tearDown() throws Exception {
 	}
 
+	@Test 
+	public void testgetOwner() {
+		Player player = new Player("Navn");
+		String expected = "Navn";
+		String actual = player.getowner();
+		assertEquals(expected,actual);
+	}
+	@Test 
+	public void testsetOwner() {
+		Player player = new Player("Navn");
+		player.setowner("Ændret navn");
+		String expected = "Ændret navn";
+		String actual = player.getowner();
+		assertEquals(expected,actual);
+	}
 
-
+	@Test 
+	public void testsetvundet() {
+		Player player = new Player("");
+		boolean expected = true;
+		player.setvundet(true);
+		boolean actual = player.getvundet();
+		
+		assertEquals(expected,actual);
+	}
+	@Test
+	public void testgetvundet() {
+		Player player = new Player("");
+		player.setvundet(true);
+		boolean actual = player.getvundet();
+		assertTrue(actual);
+	}
+	
 	@Test
 	public void testsetfaceValue() {
 		Dice d1 = new Dice();
@@ -30,8 +61,7 @@ public class JUnitTest {
 		
 		assertEquals(expected,actual);
 	}
-	
-	@Test
+@Test
 	public void testgetfaceValue() {
 		Dice d1 = new Dice();
 		int expected = 5;
@@ -60,6 +90,7 @@ public class JUnitTest {
 		boolean expected = d1.isEqual(d2);
 		assertTrue(expected);
 	}
+
 	@Test
 	public void testRollChance() {
 		Dice dice = new Dice();
@@ -110,10 +141,11 @@ public class JUnitTest {
 	
 		
 		}
+
 	@Test
 	public void testAddPoint() {
 		Player[] players = new Player[2];
-		players[0] = new Player(0);
+		players[0] = new Player("");
 		players[0].setpoints(5);
 		players[0].addpoints(17);
 		
@@ -122,7 +154,89 @@ public class JUnitTest {
 		
 		assertEquals(expected,actual);
 	}
+
+	@Test 
+	public void testgetTimesRolled() {
+		Player player = new Player("");
+		player.incTimesRolled();
+		player.incTimesRolled();
+		int expected = 2;
+		int actual = player.getTimesRolled();
+		assertEquals(expected,actual);
+	}
 	
-
-
+	@Test
+	public void testsetTimesRolled() {
+		Player player = new Player("");
+		player.setTimesRolled(23);
+		int expected = 23;
+		int actual = player.getTimesRolled();
+		assertEquals(expected,actual);
+	}
+	@Test 
+	public void testincTimesRolled() {
+		Player player = new Player("");
+		player.incTimesRolled();
+		int expected = 1;
+		int actual = player.getTimesRolled();
+		assertEquals(expected,actual);
+	}
+	
+	@Test
+	public void testsetPoints() {
+		Player player = new Player("");
+		player.setpoints(1337);
+		int expected = 1337;
+		int actual = player.getpoints();
+		assertEquals(expected,actual);
+	}
+	
+	@Test
+	public void testgetPoints() {
+		Player player = new Player("");
+		player.addpoints(5);
+		player.setpoints(666);
+		int expected = 666;
+		int actual = player.getpoints();
+		assertEquals(expected,actual);
+	}
+	
+	
+	@Test
+	public void testgetPlayerNum() {
+		Player player = new Player("Navn");
+		player.setPlayerNum(2);
+		int expected = 2;
+		int actual = player.getPlayerNum();
+		assertEquals(expected,actual);
+	}
+	
+	@Test
+	public void testsetPlayerNum() {
+		Player player = new Player("");
+		player.setPlayerNum(123);
+		int expected = 123;
+		int actual = player.getPlayerNum();
+		assertEquals(expected,actual);
+	}
+	
+	 @Test
+	 public void testsetLastThrow() {
+		 Player player = new Player("");
+		 player.setLastThrow(1, 2);
+		 boolean expected = true;
+		 boolean actual = player.lastThrowEqual(1, 2);
+		 assertEquals(expected,actual);
+	 }
+	 
+	public void testlastThrowEqual() {
+		Player player = new Player("");
+		 player.setLastThrow(3, 15);
+		 boolean expected = true;
+		 boolean actual = player.lastThrowEqual(3, 15);
+		 assertEquals(expected,actual);
+	}
+	
+	
+	
 }
