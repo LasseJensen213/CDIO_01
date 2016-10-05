@@ -261,11 +261,11 @@ public class Main {
 		String name = "";
 		for(int i = 0 ; i<numOfPlayers; i++)
 		{
-			System.out.println("Indtast navn på Spiller_"+(i+1));
+			System.out.println("Indtast navn på Spiller "+(i+1));
 			name = keyb.nextLine();
 			if(name.length()<1)
 			{
-				name = "Spiller_"+Player.getPlayerNum();
+				name = "spiller "+Player.getPlayerNum();
 			}
 			while(nameTaken(players,name,i))
 			{
@@ -273,7 +273,7 @@ public class Main {
 				name = keyb.nextLine();
 				if(name.length()<1)
 				{
-					name="Spiller_"+Player.getPlayerNum();
+					name="Spiller "+Player.getPlayerNum();
 				}
 	keyb.close();
 			}
