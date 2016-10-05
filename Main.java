@@ -7,8 +7,8 @@ public class Main {
 
 		Scanner keyb = new Scanner(System.in);		
 		//Velkomst information
-		String info = ("Velkommen til terningspillet, lavet af gruppe 42");
-		String info2 = ("Tast \"Hjælp\" for at læse spillet regler eller  \"Start\" for at starte spillet ");
+		String info = ("Hej - Velkommen til spillet.");
+		String info2 = ("Tast \"Hjælp\" for at læse spillet regler,  \"Start\" for at starte spillet, eller \"Slut\" for at afslutte spillet. ");
 
 		//Introduktion
 		System.out.println(info);
@@ -20,21 +20,19 @@ public class Main {
 
 		//Start valg.
 		do {
-			
 			String Input = keyb.nextLine();
 			Input = Input.toLowerCase();
-
 			switch (Input) {
 			case "hjælp":
 				showRules();
 				break;
 			case "start":
-				System.out.println("\r Spillet Starter");
+				System.out.println("Du har trykket \"Start.\"");
 				start = true;
 				break;
 
 			case "slut" :
-				System.out.println("Tak fordi du spillede spillet - Farvel");
+				System.out.println("Tak fordi du brugte spillet - Farvel");
 				slut = true;
 				break;
 			default :
@@ -48,12 +46,7 @@ public class Main {
 		//Selve spillet
 		while (start) 
 		{
-			/*Noter
-			 * Skal have et loop, der repræsenterer starten af spillet
-			 */
-			System.out.println("\r");
-			System.out.println("Vælg spillernavne!");
-			System.out.println("____________________________________________________\r");
+			System.out.println("Velkommen til spillet");
 			//Spillere
 
 			int numOfPlayers = 2;
@@ -72,14 +65,13 @@ public class Main {
 			boolean onlyOneLastTurn = false;
 			boolean askToRestart = false;
 			boolean genstart = false;
-
+			int aSpillerV = 0;
 
 			//Udskriver antallet af point spillerne har
 
 
 			//Start tekst
-			System.out.println("Spiller 1 starter!");
-			System.out.println("____________________________________________________\r");
+			System.out.println("Spiller 1 starter.");
 
 
 
@@ -89,10 +81,13 @@ public class Main {
 
 				ekstratur = 1;		// Tæller hvor mange ture spilleren har
 				genstart = false;
+
 				//Loop for en spillers runde
 				while(ekstratur > 0) 
 				{
+					//Det er spiller "navn"'s tur
 					System.out.println("\t\t"+players[turn].getowner()+"'s tur\r");
+					//print points
 					System.out.println(players[0].getowner() + " har " + players[0].getpoints() + " points");
 					System.out.println(players[1].getowner() + " har " + players[1].getpoints() + " points\r");
 					System.out.println("Tryk enter for at rafle");
@@ -101,9 +96,12 @@ public class Main {
 					d2.roll();
 					players[turn].incTimesRolled(); // antallet af spillerens kast gennem hele spillet +1
 
+					//Printer resultatet af terningekastet
 					System.out.println(players[turn].getowner()+" slog: "+d1.getFaceValue()+" og "+d2.getFaceValue());
 
+					//Lægger terningernes øjne sammen	
 					int resultat = d1.getFaceValue()+d2.getFaceValue();
+
 					//Spørger om spilleren har mere end 40 point
 					if (players[turn].getpoints() >= 40) 
 					{
@@ -123,18 +121,26 @@ public class Main {
 
 							//Spørger om terningernes øjne er andet end 1'ere
 							else if (d1.getFaceValue() != 1) 
-							{
+							{	
+								aSpillerV++;
+								if (aSpillerV == 2)
+								{
+									System.out.println("Uafgjort!");
+								}
 
-								// NOTE, SYSTEMET MANGLER AT UDSKRIVE POINT TIL DETTE STEP
-								System.out.println(players[turn].getowner() + " har vundet med "+players[turn].getTimesRolled()+" kast");
-								lastTurn = true;
-							}			// Slut else if sætning 
-						}// slut d1.isEqual(d2) if sætning
+								else {
+									players[turn].setvundet(true);
+									lastTurn = true;
+								}
+							}
+						}
+
 						else 
 						{
 							players[turn].addpoints(resultat);
 						}				
-					}// slut players points >=40
+					}
+
 					else 
 					{
 						players[turn].addpoints(resultat);
@@ -150,7 +156,6 @@ public class Main {
 								System.out.println(extraTurnStr);
 								System.out.println("Du mistede alle dine point desværre");
 								ekstratur++;
-								//syso? "Du har mistet alle dine points"
 							}	
 
 							//Spørger om terningernes øjne er andet end 1'ere
@@ -159,9 +164,16 @@ public class Main {
 								//Checker om sidste kast for spilleren var to seksere
 								if(players[turn].lastThrowEqual(d1.getFaceValue(), d2.getFaceValue()))
 								{
-									System.out.println( players[turn].getowner()+" har vundet med "+ players[turn].getTimesRolled());
-									lastTurn = true;
-									//
+									aSpillerV++;
+									if (aSpillerV == 2)
+									{
+										System.out.println("Uafgjort!");
+
+									}
+									else {
+										players[turn].setvundet(true);
+										lastTurn = true;
+									}
 								}
 								else
 								{
@@ -182,7 +194,6 @@ public class Main {
 
 					ekstratur--;
 					System.out.println("____________________________________________________\r");
-			
 
 					//Slutning af tur.
 					//Turen skiftes
@@ -195,7 +206,7 @@ public class Main {
 
 					if(onlyOneLastTurn)
 					{
-						/// sikrer at, hvis taberen vinder, så bliver turen ikke ved med at skifte
+						// sikrer at, hvis taberen vinder, så bliver turen ikke ved med at skifte
 						ekstratur = 0; 
 					}
 					else if(lastTurn)
@@ -210,23 +221,31 @@ public class Main {
 					{
 						turn++;
 					}
-
-				}
+					
+					
+					
 				if (turn == numOfPlayers) 
 				{
 					turn = 0;
 				}
-
+				//Printer vinderen efter sidste tur
+				if (players[0].getvundet() == true && ekstratur == 0 && askToRestart && aSpillerV != 2) {
+					System.out.println(players[0].getowner() + " har vundet med " + players[0].getTimesRolled() + " kast");
+				}
+				else if (players[1].getvundet() == true  && ekstratur == 0 && askToRestart) {
+					System.out.println(players[1].getowner() + " har vundet med " + players[1].getTimesRolled() + " kast");
+				}
+				
 				//Spørger om man vil genstarte, eller afslutte spillet
 				if(askToRestart && (ekstratur==0))
 				{
-					System.out.println("----------------------------------------------------");
+					System.out.println("---------------------------------");
 					boolean validCommand = false;
 					while (!validCommand)
 					{
 						System.out.println("tast 'genstart' for at starte et nyt spil, eller tast 'slut' for at lukke spillet");
 						String input = keyb.nextLine();
-						input.toLowerCase();
+						input = input.toLowerCase();
 						switch(input)
 						{
 						case "slut":
@@ -243,12 +262,15 @@ public class Main {
 
 						}
 					}
-
+				
 				}		
-				// Runder						
+				// Runder						¨
+				
 			}
+				
 		}//Selve spillets while loop.
 		keyb.close();
+		}
 	}
 
 
@@ -265,7 +287,7 @@ public class Main {
 			name = keyb.nextLine();
 			if(name.length()<1)
 			{
-				name = "spiller "+Player.getPlayerNum();
+				name = "Spiller "+Player.getPlayerNum();
 			}
 			while(nameTaken(players,name,i))
 			{
@@ -275,13 +297,11 @@ public class Main {
 				{
 					name="Spiller "+Player.getPlayerNum();
 				}
-	keyb.close();
+
 			}
 			players[i] = new Player(name);			
 		}
 		return players;
-		
-	
 	}
 
 	private static boolean nameTaken(Player[] playerArr, String newName, int numOfElements)
@@ -303,11 +323,13 @@ public class Main {
 	{
 		// Regler er vigtige
 		System.out.println();
+		System.out.println("Velkommen til terningspil 2000 supreme deluxe edition");
 		System.out.println("Reglerne er følgende:");
-		System.out.println("\t 1. Slår du double 6'er 2 gange i streg, vinder du");
-		System.out.println("\t 2. Slår du to ens, og har 40 points eller derover, vinder du");
-		System.out.println("\t 3. Slår du to 1'ere, mister du alle dine point");
-		System.out.println("\t 4. Slår du to ens, får du altid en ektratur");
+		System.out.println("Systemmet simmulerer kast af 2 terninger");
+		System.out.println("\t 1. Slår du fire 6'ere i streg vinder du");
+		System.out.println("\t 2. Slår du to ens, mens dine point er 40 eller over vinder du");
+		System.out.println("\t 3. Slår du to 1'ere, mister du alle dine point, også selvom du har 40 point eller derover");
+		System.out.println("\t 4. Slår du to ens på nogen andre tidspunkter, får du en ekstratur");
 		System.out.println();
 	}
 
