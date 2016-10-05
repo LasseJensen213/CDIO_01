@@ -123,6 +123,14 @@ public class Main {
 							{	
 								players[turn].setvundet(true);
 								lastTurn = true;
+								
+								if (turn == 0) {
+									System.out.println(players[1].getowner() +"'s sidste chance for at vinde!");	
+								}
+								else if (turn == 1) {
+									System.out.println(players[0].getowner() +"'s sidste chance for at vinde!");
+								}
+									
 
 							}
 						}
@@ -158,6 +166,12 @@ public class Main {
 								{
 									players[turn].setvundet(true);
 									lastTurn = true;
+									if (turn == 0) {
+										System.out.println(players[1].getowner() +"'s sidste chance for at vinde!");	
+									}
+									else if (turn == 1) {
+										System.out.println(players[0].getowner() +"'s sidste chance for at vinde!");
+									}
 								}
 								else
 								{
@@ -218,12 +232,16 @@ public class Main {
 					{
 						if (players[0].getvundet() && players[1].getvundet() == false) {
 							System.out.println(players[0].getowner() + " har vundet med " + players[0].getTimesRolled() + " kast");
+							players[0].setvundet(false);
 						}
 						else if (players[1].getvundet() && players[0].getvundet() == false) {
 							System.out.println(players[1].getowner() + " har vundet med " + players[1].getTimesRolled() + " kast");
+							players[1].setvundet(false);
 						}
 						else if (players[0].getvundet() && players[1].getvundet()) {
 							System.out.println("Spillet er uafgjort efter " + (players[0].getTimesRolled()+players[1].getTimesRolled())/2 + " kast");
+							players[0].setvundet(false);
+							players[1].setvundet(false);
 						}
 					}
 
@@ -261,7 +279,7 @@ public class Main {
 				}
 
 			}//Selve spillets while loop.
-			keyb.close();
+			
 		}
 	}
 

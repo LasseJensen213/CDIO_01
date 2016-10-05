@@ -8,7 +8,20 @@ public class Player {
 	private int timesRolled = 0;
 	private boolean vundet;
 
-
+	public Player(String name)
+	{
+		if(name.length()<1)
+		{
+			owner = "Spiller_"+playerNum;
+		}
+		else
+		{
+			owner = name;
+		}
+		playerNum++;
+		this.timesRolled = 0;
+		
+	}
 
 	//Konstruktør
 	public Player(int points) {
@@ -29,20 +42,7 @@ public class Player {
 		this.vundet = vundet; 
 	}
 	
-	public Player(String name)
-	{
-		if(name.length()<1)
-		{
-			owner = "Spiller_"+playerNum;
-		}
-		else
-		{
-			owner = name;
-		}
-		playerNum++;
-		this.timesRolled = 0;
-		
-	}
+	
 	
 	
 	//Add points
