@@ -6,19 +6,29 @@ public class Player {
 	private int[] lastThrow = new int[2];
 	private static int playerNum = 1;
 	private int timesRolled = 0;
+	private boolean vundet;
 
 
 
-	//Account information
+	//Konstruktør
 	public Player(int points) {
 		this.owner = "Spiller_"+playerNum;
 		this.points = points;
 		this.lastThrow[0]=0;
 		this.lastThrow[1]=0;
 		this.timesRolled = 0;
+		this.vundet = false;
 		playerNum++;
 		
 	}
+	
+	public boolean getvundet() {
+		return this.vundet;
+	}
+	public void setvundet(boolean vundet) {
+		this.vundet = vundet; 
+	}
+	
 	public Player(String name)
 	{
 		if(name.length()<1)
