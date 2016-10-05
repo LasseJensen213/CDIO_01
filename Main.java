@@ -7,8 +7,8 @@ public class Main {
 
 		Scanner keyb = new Scanner(System.in);		
 		//Velkomst information
-		String info = ("Hej - Velkommen til spillet.");
-		String info2 = ("Tast \"Hjælp\" for at læse spillet regler,  \"Start\" for at starte spillet, eller \"Slut\" for at afslutte spillet. ");
+		String info = ("Velkommen til terningspillet, lavet af gruppe 42");
+		String info2 = ("Tast \"Hjælp\" for at læse spillet regler eller  \"Start\" for at starte spillet ");
 
 		//Introduktion
 		System.out.println(info);
@@ -20,19 +20,21 @@ public class Main {
 
 		//Start valg.
 		do {
-			String input = keyb.nextLine();
-			input = input.toLowerCase();
-			switch (input) {
+			
+			String Input = keyb.nextLine();
+			Input = Input.toLowerCase();
+
+			switch (Input) {
 			case "hjælp":
 				showRules();
 				break;
 			case "start":
-				System.out.println("Du har trykket \"Start.\"");
+				System.out.println("\r Spillet Starter");
 				start = true;
 				break;
 
 			case "slut" :
-				System.out.println("Tak fordi du brugte spillet - Farvel");
+				System.out.println("Tak fordi du spillede spillet - Farvel");
 				slut = true;
 				break;
 			default :
@@ -46,7 +48,12 @@ public class Main {
 		//Selve spillet
 		while (start) 
 		{
-			System.out.println("Velkommen til spillet");
+			/*Noter
+			 * Skal have et loop, der repræsenterer starten af spillet
+			 */
+			System.out.println("\r");
+			System.out.println("Vælg spillernavne!");
+			System.out.println("____________________________________________________\r");
 			//Spillere
 
 			int numOfPlayers = 2;
@@ -71,7 +78,8 @@ public class Main {
 
 
 			//Start tekst
-			System.out.println("Spiller 1 starter.");
+			System.out.println("Spiller 1 starter!");
+			System.out.println("____________________________________________________\r");
 
 
 
@@ -174,6 +182,7 @@ public class Main {
 
 					ekstratur--;
 					System.out.println("____________________________________________________\r");
+			
 
 					//Slutning af tur.
 					//Turen skiftes
@@ -211,7 +220,7 @@ public class Main {
 				//Spørger om man vil genstarte, eller afslutte spillet
 				if(askToRestart && (ekstratur==0))
 				{
-					System.out.println("---------------------------------");
+					System.out.println("----------------------------------------------------");
 					boolean validCommand = false;
 					while (!validCommand)
 					{
@@ -252,11 +261,11 @@ public class Main {
 		String name = "";
 		for(int i = 0 ; i<numOfPlayers; i++)
 		{
-			System.out.println("Indtast navn på Spiller "+(i+1));
+			System.out.println("Indtast navn på Spiller_"+(i+1));
 			name = keyb.nextLine();
 			if(name.length()<1)
 			{
-				name = "Spiller "+Player.getPlayerNum();
+				name = "Spiller_"+Player.getPlayerNum();
 			}
 			while(nameTaken(players,name,i))
 			{
@@ -264,13 +273,15 @@ public class Main {
 				name = keyb.nextLine();
 				if(name.length()<1)
 				{
-					name="Spiller "+Player.getPlayerNum();
+					name="Spiller_"+Player.getPlayerNum();
 				}
-
+	keyb.close();
 			}
 			players[i] = new Player(name);			
 		}
 		return players;
+		
+	
 	}
 
 	private static boolean nameTaken(Player[] playerArr, String newName, int numOfElements)
@@ -292,13 +303,11 @@ public class Main {
 	{
 		// Regler er vigtige
 		System.out.println();
-		System.out.println("Velkommen til terningspil 2000 supreme deluxe edition");
 		System.out.println("Reglerne er følgende:");
-		System.out.println("Systemmet simmulerer kast af 2 terninger");
-		System.out.println("\t 1. Slår du fire 6'ere i streg vinder du");
-		System.out.println("\t 2. Slår du to ens, mens dine point er 40 eller over vinder du");
-		System.out.println("\t 3. Slår du to 1'ere, mister du alle dine point, også selvom du har 40 point eller derover");
-		System.out.println("\t 4. Slår du to ens på nogen andre tidspunkter, får du en ekstratur");
+		System.out.println("\t 1. Slår du double 6'er 2 gange i streg, vinder du");
+		System.out.println("\t 2. Slår du to ens, og har 40 points eller derover, vinder du");
+		System.out.println("\t 3. Slår du to 1'ere, mister du alle dine point");
+		System.out.println("\t 4. Slår du to ens, får du altid en ektratur");
 		System.out.println();
 	}
 
