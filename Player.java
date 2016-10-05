@@ -8,8 +8,9 @@ public class Player {
 	private int timesRolled = 0;
 	private boolean vundet;
 
-	public Player(String name)
-	{
+
+	//Konstruktør
+	public Player(String name) {
 		if(name.length()<1)
 		{
 			owner = "Spiller_"+playerNum;
@@ -20,18 +21,12 @@ public class Player {
 		}
 		playerNum++;
 		this.timesRolled = 0;
-		
-	}
-
-	//Konstruktør
-	public Player(int points) {
-		this.owner = "Spiller_"+playerNum;
-		this.points = points;
+		this.points = 0;
 		this.lastThrow[0]=0;
 		this.lastThrow[1]=0;
 		this.timesRolled = 0;
 		this.vundet = false;
-		playerNum++;
+		
 		
 	}
 	
