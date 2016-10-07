@@ -7,7 +7,7 @@ public class Main {
 
 		Scanner keyb = new Scanner(System.in);		
 		//Velkomst information
-		String info = ("Hej - Velkommen til spillet.");
+		String info = ("Hej Velkommen til spillet.");
 		String info2 = ("Tast \"Hjælp\" for at læse spillet regler,  \"Start\" for at starte spillet, eller \"Slut\" for at afslutte spillet. ");
 
 		//Introduktion
