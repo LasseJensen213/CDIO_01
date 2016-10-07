@@ -7,11 +7,13 @@ public class Main {
 
 		Scanner keyb = new Scanner(System.in);		
 		//Velkomst information
-		String info = ("Hej Velkommen til spillet.");
-		String info2 = ("Tast \"Hjælp\" for at læse spillet regler,  \"Start\" for at starte spillet, eller \"Slut\" for at afslutte spillet. ");
+		String info = ("|Velkommen til spillet|");
+		String info2 = ("Tast \"Start\" for at starte spillet,\"Hjælp\" for at læse spillet regler, eller \"Slut\" for at afslutte spillet. ");
 
 		//Introduktion
+		System.out.println("-----------------------");
 		System.out.println(info);
+		System.out.println("-----------------------");
 		System.out.println(info2);
 
 		//Instanser der bestemmer om spillet skal spilles
@@ -27,7 +29,7 @@ public class Main {
 				showRules();
 				break;
 			case "start":
-				System.out.println("Du har trykket \"Start.\"");
+				System.out.println("\rSpillet starter!");
 				start = true;
 				break;
 
@@ -46,7 +48,8 @@ public class Main {
 		//Selve spillet
 		while (start) 
 		{
-			System.out.println("Velkommen til spillet");
+			System.out.println("\rVælg spillernavne!");
+			System.out.println("____________________________________________________\r");
 			//Spillere
 
 			int numOfPlayers = 2;
@@ -71,7 +74,9 @@ public class Main {
 
 
 			//Start tekst
-			System.out.println("Spiller 1 starter.");
+			System.out.println("\r"+players[0].getowner()+" starter.");
+			System.out.println("____________________________________________________\r");
+			
 
 
 			String gameCommand = "";
@@ -123,14 +128,14 @@ public class Main {
 							{	
 								players[turn].setvundet(true);
 								lastTurn = true;
-
+								
 								if (turn == 0) {
 									System.out.println(players[1].getowner() +"'s sidste chance for at vinde!");	
 								}
 								else if (turn == 1) {
 									System.out.println(players[0].getowner() +"'s sidste chance for at vinde!");
 								}
-
+									
 
 							}
 						}
@@ -231,15 +236,21 @@ public class Main {
 					if (ekstratur == 0 && askToRestart)
 					{
 						if (players[0].getvundet() && players[1].getvundet() == false) {
-							System.out.println(players[0].getowner() + " har vundet med " + players[0].getTimesRolled() + " kast");
+			
+							System.out.println("\t"+players[0].getowner() + " har vundet på sit " + players[0].getTimesRolled() + " kast!");
+							System.out.println("----------------------------------------------------");
 							players[0].setvundet(false);
 						}
 						else if (players[1].getvundet() && players[0].getvundet() == false) {
-							System.out.println(players[1].getowner() + " har vundet med " + players[1].getTimesRolled() + " kast");
+				
+							System.out.println("\t"+players[1].getowner() + " har vundet på sit " + players[1].getTimesRolled() + " kast!");
+							System.out.println("----------------------------------------------------");
 							players[1].setvundet(false);
 						}
 						else if (players[0].getvundet() && players[1].getvundet()) {
-							System.out.println("Spillet er uafgjort efter " + (players[0].getTimesRolled()+players[1].getTimesRolled())/2 + " kast");
+				
+							System.out.println("\tSpillet er uafgjort efter " + (players[0].getTimesRolled()+players[1].getTimesRolled())/2 + " kast!");
+							System.out.println("----------------------------------------------------");
 							players[0].setvundet(false);
 							players[1].setvundet(false);
 						}
@@ -249,7 +260,8 @@ public class Main {
 					//Spørger om man vil genstarte, eller afslutte spillet
 					if(askToRestart && (ekstratur==0))
 					{
-						System.out.println("---------------------------------");
+		
+						System.out.println("_________________________________________________________________________________");
 						boolean validCommand = false;
 						while (!validCommand)
 						{
@@ -274,12 +286,12 @@ public class Main {
 						}
 
 					}		
-					// Runder						¨
+					// Runder						
 
 				}
 
 			}//Selve spillets while loop.
-
+			
 		}
 	}
 
@@ -288,6 +300,7 @@ public class Main {
 	{
 		/// opretter spillere med selvvalgte navne, returnere en spiller array.
 		/// er static så man ikke behøver at instantiere et objekt for at bruge metoden
+		
 		Player players[] = new Player[numOfPlayers];
 		Scanner keyb1 = new Scanner(System.in);
 		String name = "";
@@ -298,6 +311,16 @@ public class Main {
 			if(name.length()<1)
 			{
 				name = "Spiller "+Player.getPlayerNum();
+			}
+			while(name.length()>50){
+				System.out.println("Det indtastede navn er for langt - Prøv igen!");
+				name = keyb1.nextLine();
+				if(name.length()<1)
+				{
+					name="Spiller "+Player.getPlayerNum();
+				}
+
+			
 			}
 			while(nameTaken(players,name,i))
 			{
@@ -334,14 +357,17 @@ public class Main {
 	{
 		// Regler er vigtige
 		System.out.println();
-		System.out.println("Velkommen til terningspillet");
-		System.out.println("Reglerne er følgende:");
-		System.out.println("Systemmet simmulerer kast af 2 terninger");
-		System.out.println("\t 1. Slår du fire 6'ere i streg vinder du");
-		System.out.println("\t 2. Slår du to ens, mens dine point er 40 eller over vinder du");
-		System.out.println("\t 3. Slår du to 1'ere, mister du alle dine point, også selvom du har 40 point eller derover");
-		System.out.println("\t 4. Slår du to ens på nogen andre tidspunkter, får du en ekstratur");
+		System.out.println("Spillet og Regler:");
+		System.out.println("-------------------------------------------------------------------------------------------------------------");
+		System.out.println("Spillet går ud på, at man har et simuleret raflebæger, man kan vinde på fålgende møder: \r");
+		System.out.println("\t 1. Opnå 40 points eller derover, og efterfølgende slå 2 ens.");
+		System.out.println("\t 2. Slå double 6'ere to gange i streg.");
+		System.out.println("\rDerudover gælder der fålgende regler: \r");
+		System.out.println("\t 1. Slår du to ens, får du en ekstratur.");
+		System.out.println("\t 2. Slår du to 1'ere, mister du alle dine point, også selvom du har 40 point eller derover.");
+		System.out.println("\t 3. Hvis man vinder, har modspilleren altid et aflsuttende kast, for at opnå uafgjordt resultat.");
 		System.out.println();
+		System.out.println("-------------------------------------------------------------------------------------------------------------");
 	}
 
 }
