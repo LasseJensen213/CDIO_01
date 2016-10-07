@@ -64,7 +64,7 @@ public class Main {
 			int turn = 0;	//Vælger hvilken spillers tur det er.
 			int ekstratur = 1;
 			String extraTurnStr = "EKSTRA TUR!";
-			boolean lastTurn = false; // sæ den der tabte kan få en sidste tur
+			boolean lastTurn = false; // så den der tabte kan få en sidste tur
 			boolean onlyOneLastTurn = false;
 			boolean askToRestart = false;
 			boolean genstart = false;
@@ -286,7 +286,7 @@ public class Main {
 						}
 
 					}		
-					// Runder						ø
+					// Runder						
 
 				}
 
