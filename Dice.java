@@ -1,7 +1,7 @@
 package dice;
 
 public class Dice {
-
+	
 	private int faceValue;
 
 	// Roll the dices	
@@ -29,6 +29,5 @@ public class Dice {
 	public void setFaceValue(int faceValue) {
 		this.faceValue = faceValue;
 	}
-
 
 }
