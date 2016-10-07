@@ -261,7 +261,9 @@ public class JUnitTest {
 		int actual = player.getPlayerNum();
 		assertEquals(expected,actual);
 	}
-
+	/*
+	 * 
+	 */
 	@Test
 	public void testsetLastThrow() {
 		Player player = new Player("");
