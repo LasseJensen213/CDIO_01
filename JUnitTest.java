@@ -41,7 +41,7 @@ public class JUnitTest {
 		boolean expected = true;
 		player.setvundet(true);
 		boolean actual = player.getvundet();
-		
+
 		assertEquals(expected,actual);
 	}
 	@Test
@@ -51,17 +51,17 @@ public class JUnitTest {
 		boolean actual = player.getvundet();
 		assertTrue(actual);
 	}
-	
+
 	@Test
 	public void testsetfaceValue() {
 		Dice d1 = new Dice();
 		int expected = 5;
 		d1.setFaceValue(5);
 		int actual = d1.getFaceValue();
-		
+
 		assertEquals(expected,actual);
 	}
-@Test
+	@Test
 	public void testgetfaceValue() {
 		Dice d1 = new Dice();
 		int expected = 5;
@@ -69,10 +69,21 @@ public class JUnitTest {
 		int actual = d1.getFaceValue();
 		assertEquals(expected,actual);
 	}
-	
+
+	@Test
+	public void testfaceValueOverflow() {
+		Dice d1 = new Dice();
+		int expected = Integer.MAX_VALUE;
+		d1.setFaceValue(Integer.MAX_VALUE+1);
+		int actual = d1.getFaceValue();
+		assertEquals(expected,actual);
+		
+
+	}
+
 	@Test
 	public void testroll() {
-		
+
 		Dice d1 = new Dice();
 		d1.roll();
 		int ex[] = {1,2,3,4,5,6};
@@ -80,7 +91,7 @@ public class JUnitTest {
 		int actual = d1.getFaceValue();
 		assertEquals(expected,actual);
 	}
-	
+
 	@Test
 	public void testD1EqualsD2() {
 		Dice d1 = new Dice();
@@ -94,7 +105,7 @@ public class JUnitTest {
 	@Test
 	public void testRollChance() {
 		Dice dice = new Dice();
-		
+
 		//Instanser
 		int one = 0;		//Til at starte med er 1 forekommet 0 gange
 		int two = 0;		//Til at starte med er 2 forekommet 0 gange
@@ -102,13 +113,13 @@ public class JUnitTest {
 		int four = 0;		//Til at starte med er 4 forekommet 0 gange
 		int five = 0;		//Til at starte med er 5 forekommet 0 gange
 		int six = 0;		//Til at starte med er 6 forekommet 0 gange		
-		
+
 		//Expected values
-		
-		
+
+
 		for(int i=0, n=60000; i<n; i++) {
 			dice.roll();
-			
+
 			switch(dice.getFaceValue()) {
 			case 1 : 
 				one++;
@@ -128,7 +139,7 @@ public class JUnitTest {
 			case 6 :
 				six++;
 				break;
-				
+
 			}
 		}
 		assertEquals(10000, one, 400);
@@ -137,10 +148,10 @@ public class JUnitTest {
 		assertEquals(10000, four, 400);		
 		assertEquals(10000, five, 400);		
 		assertEquals(10000, six, 400);		
-	
-	
-		
-		}
+
+
+
+	}
 
 	@Test
 	public void testAddPoint() {
@@ -148,10 +159,10 @@ public class JUnitTest {
 		players[0] = new Player("");
 		players[0].setpoints(5);
 		players[0].addpoints(17);
-		
+
 		int expected = 22;
 		int actual = players[0].getpoints();
-		
+
 		assertEquals(expected,actual);
 	}
 
@@ -164,7 +175,7 @@ public class JUnitTest {
 		int actual = player.getTimesRolled();
 		assertEquals(expected,actual);
 	}
-	
+
 	@Test
 	public void testsetTimesRolled() {
 		Player player = new Player("");
@@ -173,6 +184,16 @@ public class JUnitTest {
 		int actual = player.getTimesRolled();
 		assertEquals(expected,actual);
 	}
+
+	@Test
+	public void testtimesRolledOverflow() {
+		Player player = new Player("");
+		player.setTimesRolled(Integer.MAX_VALUE+1);
+		int expected = Integer.MAX_VALUE;
+		int actual = player.getTimesRolled();
+		assertEquals(expected,actual);
+	}
+
 	@Test 
 	public void testincTimesRolled() {
 		Player player = new Player("");
@@ -181,7 +202,17 @@ public class JUnitTest {
 		int actual = player.getTimesRolled();
 		assertEquals(expected,actual);
 	}
-	
+
+	@Test 
+	public void testpointsOverflow() {
+		Player player = new Player("");
+		player.addpoints(Integer.MAX_VALUE);
+		player.addpoints(1);
+		int expected = Integer.MAX_VALUE;
+		int actual = player.getpoints();
+		assertEquals(expected,actual);
+	}
+
 	@Test
 	public void testsetPoints() {
 		Player player = new Player("");
@@ -190,7 +221,7 @@ public class JUnitTest {
 		int actual = player.getpoints();
 		assertEquals(expected,actual);
 	}
-	
+
 	@Test
 	public void testgetPoints() {
 		Player player = new Player("");
@@ -200,8 +231,8 @@ public class JUnitTest {
 		int actual = player.getpoints();
 		assertEquals(expected,actual);
 	}
-	
-	
+
+
 	@Test
 	public void testgetPlayerNum() {
 		Player player = new Player("Navn");
@@ -210,7 +241,7 @@ public class JUnitTest {
 		int actual = player.getPlayerNum();
 		assertEquals(expected,actual);
 	}
-	
+
 	@Test
 	public void testsetPlayerNum() {
 		Player player = new Player("");
@@ -219,24 +250,37 @@ public class JUnitTest {
 		int actual = player.getPlayerNum();
 		assertEquals(expected,actual);
 	}
-	
-	 @Test
-	 public void testsetLastThrow() {
-		 Player player = new Player("");
-		 player.setLastThrow(1, 2);
-		 boolean expected = true;
-		 boolean actual = player.lastThrowEqual(1, 2);
-		 assertEquals(expected,actual);
-	 }
-	 
+
+	@Test
+	public void testplayerNumOverflow() {
+		Player player = new Player("");
+		int max = Integer.MAX_VALUE+1;
+		player.setPlayerNum(max);
+
+		int expected = Integer.MAX_VALUE;
+		int actual = player.getPlayerNum();
+		assertEquals(expected,actual);
+	}
+	/*
+	 * 
+	 */
+	@Test
+	public void testsetLastThrow() {
+		Player player = new Player("");
+		player.setLastThrow(1, 2);
+		boolean expected = true;
+		boolean actual = player.lastThrowEqual(1, 2);
+		assertEquals(expected,actual);
+	}
+
 	public void testlastThrowEqual() {
 		Player player = new Player("");
-		 player.setLastThrow(3, 15);
-		 boolean expected = true;
-		 boolean actual = player.lastThrowEqual(3, 15);
-		 assertEquals(expected,actual);
+		player.setLastThrow(3, 15);
+		boolean expected = true;
+		boolean actual = player.lastThrowEqual(3, 15);
+		assertEquals(expected,actual);
 	}
-	
-	
-	
+
+
+
 }

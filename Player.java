@@ -15,7 +15,7 @@ public class Player {
 		{
 			owner = "Spiller_"+playerNum;
 		}
-		if(name.length()>50){
+		if (name.length()>50) {
 			System.out.println("Det indtastede navn er for langt - Prøv igen!");
 		}
 		else
@@ -33,25 +33,15 @@ public class Player {
 		
 	}
 	
-	public boolean getvundet() {
-		return this.vundet;
-	}
-	public void setvundet(boolean vundet) {
-		this.vundet = vundet; 
-	}
-	
+
 	
 	
 	
 	//Add points
-	
 	public void addpoints(int points) {
 		this.points += points;
 	}
-	
-		
-	
-	
+
 	//Getters and setters:
 	
 	//Getter and setter for owner
@@ -64,7 +54,13 @@ public class Player {
 		this.owner = owner;
 	}
 
-
+	public boolean getvundet() {
+		return this.vundet;
+	}
+	public void setvundet(boolean vundet) {
+		this.vundet = vundet; 
+	}
+	
 	//Getter and setter for points.
 	public int getpoints() 
 	{
@@ -77,10 +73,7 @@ public class Player {
 		return this.timesRolled;
 	}
 	
-	public static int getPlayerNum()
-	{
-		return playerNum;
-	}
+	
 	//inkrementerer antal kast med 1
 	public void incTimesRolled()
 	{
@@ -101,6 +94,17 @@ public class Player {
 		playerNum=1;
 	}
 	
+	public void setPlayerNum(int playerNum) {
+		Player.playerNum = playerNum;
+	}
+	public static int getPlayerNum()
+	{
+		return playerNum;
+	}
+
+
+
+
 	public void setLastThrow(int d1, int d2)
 	{
 		lastThrow[0]=d1;
@@ -120,5 +124,4 @@ public class Player {
 		return false;
 		}
 	}
-
 }

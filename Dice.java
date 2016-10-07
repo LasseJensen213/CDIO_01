@@ -1,12 +1,13 @@
 package dice;
 
 public class Dice {
-	
+
 	private int faceValue;
 
 	// Roll the dices	
 	public void roll() {
 		faceValue = (int)(Math.random()*6+1);
+		
 	}
 
 	//Compare faceValue
@@ -21,7 +22,7 @@ public class Dice {
 
 
 
-	//Getters and settes
+	//Getters and setters
 	public int getFaceValue() {
 		return faceValue;
 	}
@@ -29,5 +30,6 @@ public class Dice {
 	public void setFaceValue(int faceValue) {
 		this.faceValue = faceValue;
 	}
+
 
 }
