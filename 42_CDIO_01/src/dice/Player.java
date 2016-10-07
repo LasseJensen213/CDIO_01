@@ -15,6 +15,9 @@ public class Player {
 		{
 			owner = "Spiller_"+playerNum;
 		}
+		if (name.length()>50) {
+			System.out.println("Det indtastede navn er for langt - Prøv igen!");
+		}
 		else
 		{
 			owner = name;

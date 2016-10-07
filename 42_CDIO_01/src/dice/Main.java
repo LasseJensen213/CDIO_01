@@ -359,10 +359,10 @@ public class Main {
 		System.out.println();
 		System.out.println("Spillet og Regler:");
 		System.out.println("-------------------------------------------------------------------------------------------------------------");
-		System.out.println("Spillet går ud på, at man har et simuleret raflebæger, man kan vinde på fålgende møder: \r");
+		System.out.println("Spillet går ud på, at man har et simuleret raflebæger, man kan vinde på fålgende måder: \r");
 		System.out.println("\t 1. Opnå 40 points eller derover, og efterfølgende slå 2 ens.");
 		System.out.println("\t 2. Slå double 6'ere to gange i streg.");
-		System.out.println("\rDerudover gælder der fålgende regler: \r");
+		System.out.println("\rDerudover gælder der følgende regler: \r");
 		System.out.println("\t 1. Slår du to ens, får du en ekstratur.");
 		System.out.println("\t 2. Slår du to 1'ere, mister du alle dine point, også selvom du har 40 point eller derover.");
 		System.out.println("\t 3. Hvis man vinder, har modspilleren altid et aflsuttende kast, for at opnå uafgjordt resultat.");
