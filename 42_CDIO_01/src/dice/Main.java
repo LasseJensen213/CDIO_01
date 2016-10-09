@@ -6,7 +6,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		Scanner keyb = new Scanner(System.in);		
-		//Velkomst information
+		//Velkomst information til spillet
 		String info = ("|Velkommen til spillet|");
 		String info2 = ("Tast \"Start\" for at starte spillet,\"Hjælp\" for at læse spillet regler, eller \"Slut\" for at afslutte spillet. ");
 
